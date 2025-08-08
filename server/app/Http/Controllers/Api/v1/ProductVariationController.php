@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Models\ProductVariationOrder;
+use App\Http\Controllers\Controller;
+use App\Models\ProductVariation;
 use Illuminate\Http\Request;
 
-class ProductVariationOrderController extends Controller
+class ProductVariationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class ProductVariationOrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProductVariationOrder $productVariationOrder)
+    public function show(ProductVariation $productVariation)
     {
         //
     }
@@ -42,7 +43,7 @@ class ProductVariationOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductVariationOrder $productVariationOrder)
+    public function edit(ProductVariation $productVariation)
     {
         //
     }
@@ -50,7 +51,7 @@ class ProductVariationOrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductVariationOrder $productVariationOrder)
+    public function update(Request $request, ProductVariation $productVariation)
     {
         //
     }
@@ -58,7 +59,7 @@ class ProductVariationOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductVariationOrder $productVariationOrder)
+    public function destroy(ProductVariation $productVariation)
     {
         //
     }
