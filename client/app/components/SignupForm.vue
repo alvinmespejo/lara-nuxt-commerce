@@ -3,8 +3,8 @@ import * as z from 'zod';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import type { APIResponseError } from '../../shared/types'
-
 import { toast } from 'vue-sonner';
+
 
 const { signUp } = useAuth();
 const errors = ref<APIResponseError>({});
