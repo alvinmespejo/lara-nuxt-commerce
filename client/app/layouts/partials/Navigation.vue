@@ -1,4 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { data: user, status, signOut } = useAuth();
+
+const isAuthenticated = computed(() => {
+  return status.value === 'authenticated' || status.value === 'loading'
+})
+
+const name = computed(() => {
+  return user.value?.name
+})
+
+const signout = async() => {
+  await signOut({ callbackUrl: '/'})
+}
+</script>
 
 <template>
   <header
@@ -43,12 +57,20 @@
         <div
           class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4"
         >
-          <button class="btn-primary">
-            <NuxtLink :to="{name: 'auth-signin'}">Sign In</NuxtLink>
-          </button>
-          <button class="btn-secondary">
-            <NuxtLink :to="{name: 'auth-signup'}">Sign Up</NuxtLink>
-          </button>
+          <template v-if="!isAuthenticated">
+            <button class="btn-primary">
+              <NuxtLink :to="{name: 'auth-signin'}">Sign In</NuxtLink>
+            </button>
+            <button class="btn-secondary">
+              <NuxtLink :to="{name: 'auth-signup'}">Sign Up</NuxtLink>
+            </button>
+          </template>
+          <template v-else>
+            <div>{{ name }}</div>
+            <button class="btn-secondary hover:cursor-pointer" @click.prevent="signout">
+              Signout
+            </button>
+          </template>
         </div>
       </div>
     </div>

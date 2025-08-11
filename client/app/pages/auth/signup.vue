@@ -7,6 +7,10 @@ useHead({
 
 definePageMeta({
   layout: 'auth',
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/dashboard'
+  }
 });
 </script>
 

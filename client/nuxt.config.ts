@@ -53,23 +53,23 @@ export default defineNuxtConfig({
     componentDir: '~/components/ui',
   },
   auth: {
-    // globalAppMiddleware: true,
+    globalAppMiddleware: true,
     baseURL: process.env.PUBLIC_API_BASE,
     provider: {
       type: 'local',
-      pages: { login: '/auth/signin' },
+      pages: { login: '/' },
       endpoints: {
-        signIn: { path: '/api/auth/signin', method: 'post' },
-        signOut: { path: '/api/auth/signout', method: 'post' },
-        signUp: { path: '/api/auth/signup', method: 'post' },
-        getSession: { path: '/api/auth/me', method: 'get' },
+        signIn: { path: '/api/v1/auth/signin', method: 'post' },
+        signOut: { path: '/api/v1/auth/signout', method: 'post' },
+        signUp: { path: '/api/v1/auth/signup', method: 'post' },
+        getSession: { path: '/api/v1/auth/me', method: 'get' },
       },
       token: {
         signInResponseTokenPointer: '/data/access_token',
         type: 'Bearer',
         cookieName: 'auth.token',
         headerName: 'Authorization',
-        maxAgeInSeconds: 60 * 60 * 1, // 1hr need to update this to 15 mins in prod
+        maxAgeInSeconds: 60 * 15, // 1hr need to update this to 15 mins in prod
       },
       // refresh: {
       //   isEnabled: true,

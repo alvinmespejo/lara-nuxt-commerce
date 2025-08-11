@@ -6,7 +6,7 @@ import type { APIResponseError } from '../../shared/types'
 
 import { toast } from 'vue-sonner';
 
-// const { signUp } = useAuth();
+const { signUp } = useAuth();
 const errors = ref<APIResponseError>({});
 const isCreatingAccount = ref<boolean>(false);
 
@@ -33,13 +33,16 @@ const onSubmit = form.handleSubmit(async (values) => {
   try {
     errors.value = {};
     isCreatingAccount.value = true;
-    // await signUp(values, {
-    //   preventLoginFlow: true,
-    //   redirect: false,
-    //   callbackUrl: undefined,
-    //   callGetSession: false,
-    // });
+    await signUp(values, {
+      preventLoginFlow: true,
+      redirect: false,
+      callbackUrl: undefined,
+      callGetSession: false,
+    });
 
+    toast.success('Success', {
+      description: 'Acccount successfully created.'
+    })
     form.resetForm();
     setTimeout(() => {
       isCreatingAccount.value = false;
