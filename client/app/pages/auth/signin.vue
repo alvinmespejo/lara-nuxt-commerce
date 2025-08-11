@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import SigninForm from '~/components/SigninForm.vue';
 
+useHead({
+    title: 'Sign In'
+})
+
 definePageMeta({
   layout: 'auth',
 });
 </script>
 
 <template>
-  <div class="container mx-auto w-sm mt-20">
-    <SigninForm />
+  <div class="min-h-svh flex flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <div class="flex w-full max-w-sm flex-col gap-6">
+      <NuxtLink to="/" class="flex items-center gap-2 self-center text-3xl font-extrabold text-sky-500">
+        DevShop
+      </NuxtLink>
+      <SigninForm />
+    </div>
   </div>
 </template>

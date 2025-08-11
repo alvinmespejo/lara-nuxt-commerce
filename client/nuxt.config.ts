@@ -13,10 +13,24 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBaseURL: `${process.env.PUBLIC_API_BASE}`
-    }
+      apiBaseURL: `${process.env.PUBLIC_API_BASE}`,
+    },
   },
-  modules: ['shadcn-nuxt', '@nuxt/eslint', '@sidebase/nuxt-auth'],
+  app: {
+    head: {
+      titleTemplate: '%s - DevShop',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'description',
+          content: process.env.npm_package_description || '',
+        },
+      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    },
+  },
+  modules: ['shadcn-nuxt', '@nuxt/eslint', '@sidebase/nuxt-auth', '@pinia/nuxt'],
   eslint: {
     config: {
       stylistic: {
@@ -39,11 +53,11 @@ export default defineNuxtConfig({
     componentDir: '~/components/ui',
   },
   auth: {
-    globalAppMiddleware: true,
+    // globalAppMiddleware: true,
     baseURL: process.env.PUBLIC_API_BASE,
     provider: {
       type: 'local',
-      pages: '/auth/signin',
+      pages: { login: '/auth/signin' },
       endpoints: {
         signIn: { path: '/api/auth/signin', method: 'post' },
         signOut: { path: '/api/auth/signout', method: 'post' },

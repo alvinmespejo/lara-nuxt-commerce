@@ -18,7 +18,7 @@ import FormMessage from './ui/form/FormMessage.vue';
 import { Loader2 } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
 
-// const { signIn } = useAuth();
+const { signIn } = useAuth();
 const isSigningIn = ref<boolean>(false);
 const errors = ref<APIResponseError>({});
 
@@ -38,7 +38,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
   try {
     isSigningIn.value = true;
-    // await signIn(values, { callbackUrl: '/dashboard' });
+    await signIn(values, { callbackUrl: '/dashboard' });
     /* eslint-disable  @typescript-eslint/no-explicit-any */
   }
   catch (e: Error | any) {
@@ -49,14 +49,12 @@ const onSubmit = form.handleSubmit(async (values) => {
 
     if (e.statusCode === 422) {
       errors.value = e.data.errors;
-    }
-    else if (e.statusCode === 401) {
+    } else if (e.statusCode === 401) {
       errors.value = { general: e.data.data };
       toast.error('Error', {
         description: errors.value.general,
       });
-    }
-    else {
+    } else {
       errors.value = { general: e.message };
       toast.error('Error', {
         description: errors.value,

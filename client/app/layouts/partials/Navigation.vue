@@ -47,7 +47,7 @@
             <NuxtLink :to="{name: 'auth-signin'}">Sign In</NuxtLink>
           </button>
           <button class="btn-secondary">
-            <NuxtLink :to="{name: 'auth-signin'}">Sign Up</NuxtLink>
+            <NuxtLink :to="{name: 'auth-signup'}">Sign Up</NuxtLink>
           </button>
         </div>
       </div>

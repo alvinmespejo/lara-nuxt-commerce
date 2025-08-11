@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup lang="ts">
+useHead({
+  title: 'Home',
+});
+</script>
 <template>
-    <div class="container mx-auto flex flex-wrap justify-between items-center mt-10">Index page</div>
+  <div class="container mx-auto mt-10">Index Page</div>
 </template>
