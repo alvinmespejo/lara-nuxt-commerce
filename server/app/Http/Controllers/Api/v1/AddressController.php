@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Country;
+use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
-class CountryController extends Controller
+class AddressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Country $country)
+    public function show(Address $address)
     {
         //
     }
@@ -42,7 +43,7 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Country $country)
+    public function edit(Address $address)
     {
         //
     }
@@ -50,7 +51,7 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, Address $address)
     {
         //
     }
@@ -58,7 +59,7 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Country $country)
+    public function destroy(Address $address)
     {
         //
     }
