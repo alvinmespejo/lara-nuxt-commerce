@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\v1\ProductResource;
+use App\Http\Resources\Api\v1\ProductResourceIndex;
 use App\Models\Product;
+use App\Scoping\Scopes\CategoryScope;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -13,7 +17,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::query()
+            ->with(['variations.stock'])
+            ->withScopes($this->scopes())
+            ->paginate(10);
+
+        return ProductResourceIndex::collection($products);
+    }
+
+    private function scopes(): array
+    {
+        return [
+            'category' => new CategoryScope()
+        ];
     }
 
     /**
@@ -37,7 +53,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $product->load(['variations.type', 'variations.stock', 'variations.product']);
+
+        return new ProductResource($product);
     }
 
     /**

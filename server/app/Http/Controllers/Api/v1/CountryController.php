@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\v1\CountryResource;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::query()->get();
+        return CountryResource::collection($countries);
     }
 
     /**

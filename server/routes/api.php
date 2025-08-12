@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\v1\Auth\SigninController;
 use App\Http\Controllers\Api\v1\Auth\SignupController;
 use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\CountryController;
+use App\Http\Controllers\Api\v1\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,10 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['middleware' => 'jwt'], function () {
         Route::resource('countries', CountryController::class);
         Route::resource('addresses', AddressController::class);
+
+
     });
+
     Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
 });

@@ -26,7 +26,7 @@ export function useAPI() {
   const configEnv = useRuntimeConfig();
 
   const customFetch = $fetch.create({
-    baseURL: `${configEnv.public.apiBaseURL}/api`,
+    baseURL: `${configEnv.public.apiBaseURL}/api/v1`,
     onRequest({ options }) {
       if (token.value) {
         options.headers.set('Authorization', `Bearer ${token.value}`);
@@ -61,7 +61,7 @@ export function useAPI() {
     );
 
     return {
-      data: data.value as any, // eslint-disable-line  @typescript-eslint/no-explicit-any
+      data: data.value as TResponse, // eslint-disable-line  @typescript-eslint/no-explicit-any
       error: error.value,
       status: status.value,
       execute: refresh,

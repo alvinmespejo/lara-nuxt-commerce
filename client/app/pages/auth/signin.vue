@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SigninForm from '~/components/SigninForm.vue';
+import { useCategories } from '~/stores/categories'
 
 useHead({
     title: 'Sign In'

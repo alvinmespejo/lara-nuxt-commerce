@@ -43,3 +43,19 @@ export interface SnippetResponse {
   author: User;
 }
 
+export type Country = {
+  id: string | number;
+  name: string;
+  code: string;
+};
+
+export type Category = {
+  id: string | number;
+  name: string;
+  slug: string;
+};
+
+export interface IStateCategories {
+  categories: Category | undefined;
+}
+
