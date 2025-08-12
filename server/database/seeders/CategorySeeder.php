@@ -30,15 +30,7 @@ class CategorySeeder extends Seeder
             [
                 'name' => $name = fake()->words(3, true),
                 'slug' => \Illuminate\Support\Str::slug($name)
-            ],
-            [
-                'name' => $name = fake()->words(3, true),
-                'slug' => \Illuminate\Support\Str::slug($name)
-            ],
-            [
-                'name' => $name = fake()->words(3, true),
-                'slug' => \Illuminate\Support\Str::slug($name)
-            ],
+            ]
         ];
 
         foreach ($categories as $category) {
