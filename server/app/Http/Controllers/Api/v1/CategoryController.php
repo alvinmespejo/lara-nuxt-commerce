@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\CategoryResource;
+use App\Http\Response\ApiResponseError;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class CategoryController extends Controller
 {
@@ -14,8 +17,13 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::query()->with('children')->parents()->get();
-        return CategoryResource::collection($categories);
+        try {
+            $categories = Category::query()->with('children')->parents()->get();
+            return CategoryResource::collection($categories);
+        } catch (Throwable $th) {
+            Log::error('CATEOGORIES', [$th]);
+            return new ApiResponseError($th);
+        }
     }
 
     /**

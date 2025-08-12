@@ -12,7 +12,6 @@ class Scoper
 {
     public function __construct(protected Request $request)
     {
-        Log::debug('REQUEST KEYS AND VALUES', $this->request->all());
     }
 
     public function apply(Builder $builder, array $scopes): Builder
@@ -23,7 +22,6 @@ class Scoper
             }
 
             $scope->apply($builder, $this->request->get($key));
-            Log::debug('REQUEST KEY', [$this->request->get($key)]);
         }
 
 

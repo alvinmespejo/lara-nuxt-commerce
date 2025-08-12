@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\ProductResource;
 use App\Http\Resources\Api\v1\ProductResourceIndex;
+use App\Http\Response\ApiResponseError;
 use App\Models\Product;
 use App\Scoping\Scopes\CategoryScope;
 use Illuminate\Http\Request;
@@ -17,12 +18,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::query()
-            ->with(['variations.stock'])
-            ->withScopes($this->scopes())
-            ->paginate(10);
+        try {
+            $products = Product::query()
+                ->with(['variations.stock'])
+                ->withScopes($this->scopes())
+                ->paginate(10);
 
-        return ProductResourceIndex::collection($products);
+            return ProductResourceIndex::collection($products);
+        } catch (\Throwable $th) {
+            Log::error('PRODUCTS', [$th]);
+            return new ApiResponseError($th);
+        }
     }
 
     private function scopes(): array

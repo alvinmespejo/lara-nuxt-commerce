@@ -28,7 +28,7 @@ class Product extends Model
     public function stockCount(): int
     {
         return $this->variations->sum(function ($variation) {
-            return $this->stockCount();
+            return $variation->stockCount();
         });
     }
 

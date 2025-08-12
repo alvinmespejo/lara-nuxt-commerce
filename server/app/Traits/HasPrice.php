@@ -11,7 +11,7 @@ trait HasPrice
         return new MoneyService($value);
     }
 
-    public function getFormattedPriceAttribute()
+    public function getFormattedPriceAttribute(): string
     {
         return $this->price->formatted();
     }

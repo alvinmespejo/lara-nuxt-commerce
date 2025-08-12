@@ -50,7 +50,7 @@ class MoneyService
      *
      * @return void
      */
-    public function formatted()
+    public function formatted(): string
     {
         $formatter = new IntlMoneyFormatter(
             new NumberFormatter('en_US', NumberFormatter::CURRENCY),
