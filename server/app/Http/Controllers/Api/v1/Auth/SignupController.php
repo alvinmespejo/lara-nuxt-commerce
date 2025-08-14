@@ -7,9 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\v1\SignupRequest;
 use App\Http\Response\ApiResponse;
 use App\Http\Response\ApiResponseError;
-use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 

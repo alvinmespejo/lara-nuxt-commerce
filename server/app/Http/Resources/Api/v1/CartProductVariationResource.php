@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\Api\v1;
 
+use App\Services\MoneyService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResourceIndex extends JsonResource
+class CartProductVariationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,7 +15,7 @@ class ProductResourceIndex extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $product = [
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
@@ -23,5 +24,19 @@ class ProductResourceIndex extends JsonResource
             'stock_count' => $this->stockCount(),
             'in_stock' => $this->inStock()
         ];
+
+        return array_merge(
+            $product,
+            [
+                'product' => new ProductResourceIndex($this->product),
+                'quantity' => $this->pivot->quantity,
+                'total' => $this->getTotal()->formatted()
+            ]
+        );
+    }
+
+    private function getTotal(): MoneyService
+    {
+        return new MoneyService($this->pivot->quantity * $this->price->amount());
     }
 }

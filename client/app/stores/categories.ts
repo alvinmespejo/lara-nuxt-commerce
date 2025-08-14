@@ -7,6 +7,20 @@ import type { Category, IStateCategories } from '../../shared/types/index'
 //     })
 // })
 
+// type UserState = {
+//   login: string
+//   isPremium: boolean
+// }
+
+
+// const useUserStore = defineStore<string, UserState>('user', {
+//   state: () => ({
+//     login: 'test',
+//     isPremium: false,
+//   }),
+// })
+
+
 interface ICategoryResponse {
     data: Category[] | undefined | null
 }
@@ -19,10 +33,9 @@ export const useCategories = defineStore('categories', {
   },
   actions: {
     async fetch() {
-        const api = useAPI();
-        let response = await api.get<ICategoryResponse>('/categories')
-        this.categories = response.data ? response.data?.data : []
-        console.log(this.categories)
+      const api = useAPI();
+      let response = await api.get<ICategoryResponse>('/categories')
+      this.categories = response.data ? response.data?.data : []
     }
   },
   getters: {

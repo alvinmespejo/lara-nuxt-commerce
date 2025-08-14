@@ -1,31 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\v1\CountryResource;
-use App\Http\Response\ApiResponse;
-use App\Http\Response\ApiResponseError;
-use App\Models\Country;
+use App\Models\ShippingMethod;
 use Illuminate\Http\Request;
-use Throwable;
 
-class CountryController extends Controller
+class ShippingMethodController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        try {
-            return new ApiResponse(
-                CountryResource::collection(
-                    Country::query()->get()
-                )
-            );
-        } catch (Throwable $th) {
-            return new ApiResponseError($th);
-        }
+        //
     }
 
     /**
@@ -47,7 +34,7 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Country $country)
+    public function show(ShippingMethod $shippingMethod)
     {
         //
     }
@@ -55,7 +42,7 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Country $country)
+    public function edit(ShippingMethod $shippingMethod)
     {
         //
     }
@@ -63,7 +50,7 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, ShippingMethod $shippingMethod)
     {
         //
     }
@@ -71,7 +58,7 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Country $country)
+    public function destroy(ShippingMethod $shippingMethod)
     {
         //
     }

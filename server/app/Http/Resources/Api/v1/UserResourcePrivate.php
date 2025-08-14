@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\v1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResourceIndex extends JsonResource
+class UserResourcePrivate extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class ProductResourceIndex extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'price' => $this->formattedPrice,
-            'description' => $this->descrition,
-            'stock_count' => $this->stockCount(),
-            'in_stock' => $this->inStock()
+            'nanme' => $this->name,
+            'email' => $this->email,
         ];
     }
 }

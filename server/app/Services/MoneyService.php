@@ -5,13 +5,13 @@ namespace App\Services;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\IntlMoneyFormatter;
-use Money\Money;
+use Money\Money as BaseMoney;
 use NumberFormatter;
 use Symfony\Component\Translation\Formatter\IntlFormatter;
 
 class MoneyService
 {
-    protected ?Money $money = null;
+    protected ?BaseMoney $money = null;
 
     /**
      * Undocumented function
@@ -20,7 +20,7 @@ class MoneyService
      */
     public function __construct(int|string $amount)
     {
-        $this->money = new Money($amount, new Currency('USD'));
+        $this->money = new BaseMoney($amount, new Currency('USD'));
     }
 
     /**
@@ -36,20 +36,15 @@ class MoneyService
     /**
      * Undocumented function
      *
-     * @param Money $amount
-     * @return self
+     * @param MoneyService $money
      */
-    public function add(Money $amount): self
+    public function add(MoneyService $money): MoneyService
     {
-        $this->money = $this->money->add($amount);
+        $this->money = $this->money->add($money->instance());
+
         return $this;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
     public function formatted(): string
     {
         $formatter = new IntlMoneyFormatter(
@@ -60,7 +55,7 @@ class MoneyService
         return $formatter->format($this->money);
     }
 
-    public function getInstance()
+    public function instance(): BaseMoney
     {
         return $this->money;
     }

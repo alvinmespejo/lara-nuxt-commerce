@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\CartService;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,12 +14,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // $this->app->singleton();
-
         if ($this->app->environment('local') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        $this->app->singleton(CartService::class, function ($app) {
+            if ($user = $app->auth->user()) {
+                $user->load([
+                    'cart.stock'
+                ]);
+            }
+
+            return new CartService($app->auth->user());
+        });
     }
 
     /**
@@ -24,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Date::use(CarbonImmutable::class);
     }
 }

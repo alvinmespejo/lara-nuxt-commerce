@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\ProductResource;
 use App\Http\Resources\Api\v1\ProductResourceIndex;
+use App\Http\Response\ApiResponse;
 use App\Http\Response\ApiResponseError;
 use App\Models\Product;
 use App\Scoping\Scopes\CategoryScope;
@@ -25,6 +26,7 @@ class ProductController extends Controller
                 ->paginate(10);
 
             return ProductResourceIndex::collection($products);
+            // return new ApiResponse();
         } catch (\Throwable $th) {
             Log::error('PRODUCTS', [$th]);
             return new ApiResponseError($th);
@@ -61,7 +63,8 @@ class ProductController extends Controller
     {
         $product->load(['variations.type', 'variations.stock', 'variations.product']);
 
-        return new ProductResource($product);
+        // return new ProductResource($product);
+        return new ApiResponse(new ProductResource($product));
     }
 
     /**

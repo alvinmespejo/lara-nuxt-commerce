@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\v1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResourceIndex extends JsonResource
+class AddressResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +17,11 @@ class ProductResourceIndex extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->slug,
-            'price' => $this->formattedPrice,
-            'description' => $this->descrition,
-            'stock_count' => $this->stockCount(),
-            'in_stock' => $this->inStock()
+            'city' => $this->city,
+            'address_1' => $this->address_1,
+            'postal_code' => $this->postal_code,
+            'default' => $this->default,
+            'country' => new CountryResource($this->whenLoaded('country')),
         ];
     }
 }
