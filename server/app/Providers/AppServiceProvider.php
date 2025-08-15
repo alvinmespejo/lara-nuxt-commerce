@@ -3,9 +3,13 @@
 namespace App\Providers;
 
 use App\Services\CartService;
+use App\Services\Payments\Contracts\PaymentProviderInterface;
+use App\Services\Payments\StripeProviderService;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
+use Stripe\Stripe;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
             return new CartService($app->auth->user());
         });
+
+        $this->app->singleton(PaymentProviderInterface::class, function () {
+            return new StripeProviderService();
+        });
     }
 
     /**
@@ -36,5 +44,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Date::use(CarbonImmutable::class);
+        Stripe::setApiKey(config('services.stripe.secret'));
     }
 }

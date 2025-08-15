@@ -4,10 +4,11 @@ namespace App\Services\Payments;
 
 use App\Models\User;
 use App\Services\Payments\Contracts\PaymentProviderInterface;
+use Stripe\Customer;
 
 class StripeProviderService implements PaymentProviderInterface
 {
-    private ?User $user = null;
+    protected ?User $user = null;
 
     public function withCustomer(User $user)
     {
@@ -22,15 +23,35 @@ class StripeProviderService implements PaymentProviderInterface
 
     public function createCustomer()
     {
-        if ($this->user->stripe_id) {
+        if ($this->user->provider_id) {
             return $this->getCustomer();
         }
+
+        $customer = new CustomerService(
+            $this,
+            $this->createStripeCustomer()
+        );
+
+        $this->user->update([
+            'provider_id' => $customer->id()
+        ]);
+
+        return $customer;
     }
 
     protected function getCustomer()
     {
-
+        return new CustomerService(
+            $this,
+            Customer::retrieve($this->user->provider_id)
+        );
     }
 
-    protected function create
+    protected function createStripeCustomer()
+    {
+        return Customer::create([
+            'name' => $this->user->name,
+            'email' => $this->user->email
+        ]);
+    }
 }

@@ -14,6 +14,7 @@ use Throwable;
 class AddressShippingController extends Controller
 {
     use AuthorizesRequests;
+
     public function show(Address $address)
     {
         $this->authorize('view', $address);

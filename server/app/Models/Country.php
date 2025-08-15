@@ -10,6 +10,6 @@ class Country extends Model
 
     public function shippingMethods()
     {
-        return $this->hasMany(ShippingMethod::class);
+        return $this->belongsToMany(ShippingMethod::class);
     }
 }
