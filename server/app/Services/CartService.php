@@ -12,7 +12,7 @@ class CartService
     private bool $changed = false;
     private ?ShippingMethod $shipping = null;
 
-    public function __construct(protected User $user)
+    public function __construct(public User $user)
     {
     }
 
@@ -54,7 +54,7 @@ class CartService
      */
     public function empty()
     {
-        $this->user->cart->detach();
+        $this->user->cart()->detach();
     }
 
     /**

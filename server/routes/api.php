@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\v1\Auth\SignupController;
 use App\Http\Controllers\Api\v1\CartController;
 use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\CountryController;
+use App\Http\Controllers\Api\v1\OrderController;
 use App\Http\Controllers\Api\v1\ProductController;
 use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,9 @@ Route::group(['prefix' => '/v1'], function () {
         Route::get('/addresses/{address}/shipping', [AddressShippingController::class, 'show']);
         Route::apiResource('countries', CountryController::class);
         Route::apiResource('addresses', AddressController::class);
+        Route::apiResource('orders', OrderController::class);
     });
+
 
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategoryController::class);

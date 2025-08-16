@@ -1,13 +1,11 @@
 <?php
 
+use App\Http\Middleware\Cart\EmptyResponse;
+use App\Http\Middleware\Cart\Sync;
 use App\Http\Middleware\JWTAuthGuardMiddleware;
-use App\Http\Response\ApiResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['jwt' => JWTAuthGuardMiddleware::class]);
+        $middleware
+        ->alias([
+            'jwt' => JWTAuthGuardMiddleware::class,
+            'cart.sync' => Sync::class,
+            'cart.empty' => EmptyResponse::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -39,7 +39,7 @@ class StripeProviderService implements PaymentProviderInterface
         return $customer;
     }
 
-    protected function getCustomer()
+    public function getCustomer()
     {
         return new CustomerService(
             $this,

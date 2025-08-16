@@ -12,6 +12,7 @@ use Stripe\Card;
 use Stripe\Charge;
 use Stripe\Customer;
 use Stripe\Source;
+use Throwable;
 use Tymon\JWTAuth\Claims\Custom;
 
 class CustomerService implements PaymentProviderCustomerInterface
@@ -29,7 +30,8 @@ class CustomerService implements PaymentProviderCustomerInterface
                 'source' => $payment->provider_id,
                 'customer' => $this->customer->id,
             ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
+            Log::error("CUSTOMER SERVICE PAYMENT CHARGE", [$th]);
             throw new PaymentFailedException();
         }
     }

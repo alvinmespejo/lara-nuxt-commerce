@@ -48,7 +48,10 @@ class AddressController extends Controller
             );
 
             $request->user()->addresses()->save($address);
-            return new ApiResponse(new AddressResource($address->load('country')), code: Response::HTTP_CREATED);
+            return new ApiResponse(
+                new AddressResource($address->load('country')),
+                code: Response::HTTP_CREATED
+            );
         } catch (Throwable $th) {
             return new ApiResponseError($th);
         }

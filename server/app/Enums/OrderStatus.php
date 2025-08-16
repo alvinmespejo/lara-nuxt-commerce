@@ -7,7 +7,7 @@ enum OrderStatus: string
     case PENDING = 'pending';
     case PROCESSING = 'processing';
     case COMPLETED = 'completed';
-    case CANCELLED = 'cancelled';
+    case PAYMENT_FAILED = 'payment_failed';
 
     public function label(): string
     {
@@ -15,7 +15,7 @@ enum OrderStatus: string
             self::PENDING => 'Pending',
             self::PROCESSING => 'Processing',
             self::COMPLETED => 'Completed',
-            self::CANCELLED => 'Cancelled',
+            self::PAYMENT_FAILED => 'Payment Failed',
         };
     }
 }
