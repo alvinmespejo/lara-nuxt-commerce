@@ -9,9 +9,9 @@ import type { UseFetchOptions } from 'nuxt/app';
  * @param options
  * @returns
  */
-export function useFetchAPI<R, T>(
+export function useFetchAPI<T>(
   url: string | (() => string),
-  options?: UseFetchOptions<R, T>
+  options?: UseFetchOptions<T>
 ) {
   return useFetch(url, {
     ...options,

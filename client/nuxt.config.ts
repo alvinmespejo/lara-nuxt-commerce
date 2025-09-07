@@ -105,5 +105,9 @@ export default defineNuxtConfig({
       enableOnWindowFocus: true,
     },
   },
-  plugins: ['~/plugins/ssr-width.ts'],
+  plugins: [
+    '~/plugins/ssr-width.ts',
+    '~/plugins/init.pinia.server.ts',
+    '~/plugins/api.interceptor.ts',
+  ],
 });

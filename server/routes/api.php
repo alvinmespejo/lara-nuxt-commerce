@@ -35,13 +35,14 @@ Route::group(['prefix' => '/v1'], function () {
         Route::apiResource('countries', CountryController::class);
         Route::apiResource('addresses', AddressController::class);
         Route::apiResource('orders', OrderController::class);
+
+        Route::apiResource('cart', CartController::class)->parameters([
+            'cart' => 'productVariation'
+        ]);
     });
 
 
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('payment-methods', PaymentMethodController::class);
-    Route::apiResource('cart', CartController::class)->parameters([
-        'cart' => 'productVariation'
-    ]);
 });

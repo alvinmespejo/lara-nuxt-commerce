@@ -1,6 +1,4 @@
-
-import type { UseFetchOptions } from '#app';
-import type { Category, IStateCategories } from '../../shared/types/index'
+import type { Category } from '../../shared/types/category'
 // export const useCategories = defineStore('categories', {
 //     state: (): IStateCategories => ({
 //       categories: undefined
@@ -12,33 +10,38 @@ import type { Category, IStateCategories } from '../../shared/types/index'
 //   isPremium: boolean
 // }
 
-
 // const useUserStore = defineStore<string, UserState>('user', {
 //   state: () => ({
 //     login: 'test',
 //     isPremium: false,
 //   }),
 // })
+// https://stackoverflow.com/questions/69833591/how-to-set-the-type-for-the-state-object-in-pinia
 
+type ICategoryResponse = {
+    data: Category[] | undefined
+}
 
-interface ICategoryResponse {
-    data: Category[] | undefined | null
+type State = {
+  categories: Category[] | undefined
 }
 
 export const useCategories = defineStore('categories', {
-  state: () => {
-    return {
-        categories: <Category[] | undefined | null>[]
-    }
-  },
+  state: (): State => ({
+    // categories: <Category[] | undefined>[]
+    categories: undefined as Category[] | undefined
+  }),
   actions: {
     async fetch() {
       const api = useAPI();
-      let response = await api.get<ICategoryResponse>('/categories')
-      this.categories = response.data ? response.data?.data : []
+      let resp = await api.get<ICategoryResponse>('/categories');
+      this.categories = resp.data ?? []
+      // console.log(this.categories);
     }
   },
   getters: {
-    categoryLists: (state) => state.categories
+    getCategories (state): Category[] | null {
+      return state.categories ?? null;
+    } 
   }
 });

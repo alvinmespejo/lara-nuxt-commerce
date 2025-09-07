@@ -1,6 +1,7 @@
 import { $fetch } from 'ofetch';
 import type { FetchOptions } from 'ofetch';
 import { useAsyncData, navigateTo } from '#app';
+import querystring from 'query-string'
 
 interface ApiResponse<T> {
   data: T | null;
@@ -45,7 +46,7 @@ export function useAPI() {
     },
   });
 
-  const get = async <TResponse = unknown>(
+  const getV1 = async <TResponse = unknown>(
     url: string,
     options: ApiOptions = {}
   ): Promise<ApiResponse<TResponse>> => {
@@ -68,6 +69,18 @@ export function useAPI() {
     };
   };
 
+  const get = async <TResponse = unknown>(
+    url: string,
+    options: FetchOptions = {}
+  ): Promise<TResponse> => {
+    return await customFetch<TResponse>(url, {
+      method: 'GET',
+      headers: options.headers,
+      query: options.query,
+      retry: options.retry,
+    });
+  };
+
   const post = async <
     TResponse = unknown,
     TBody extends GenericFormData = GenericFormData
@@ -84,7 +97,7 @@ export function useAPI() {
     });
   };
 
-  const patch = async <
+  const patch = async<
     TResponse = unknown,
     TBody extends GenericFormData = GenericFormData
   >(
@@ -119,7 +132,7 @@ export function useAPI() {
     });
   };
 
-  const destroy = async <TResponse>(
+  const destroy = async <TResponse = unknown>(
     url: string,
     options: FetchOptions = {}
   ): Promise<TResponse> => {
@@ -132,6 +145,7 @@ export function useAPI() {
   };
 
   return {
+    getV1,
     get,
     post,
     patch,

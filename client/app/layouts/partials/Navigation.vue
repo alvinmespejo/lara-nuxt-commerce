@@ -2,39 +2,27 @@
 const { data: user, status, signOut } = useAuth();
 
 const isAuthenticated = computed(() => {
-  return status.value === 'authenticated' || status.value === 'loading'
-})
+  return status.value === 'authenticated' || status.value === 'loading';
+});
 
-const name = computed(() => {
-  return user.value?.name
-})
+const name = computed(() => user.value?.name);
 
-const signout = async() => {
-  await signOut({ callbackUrl: '/'})
-}
+const signout = async () => {
+  await signOut({ callbackUrl: '/' });
+};
 </script>
 
 <template>
-  <header
-    class="bg-white text-gray-800 shadow-md sticky top-0 z-50 border-b border-gray-200"
-  >
-    <div
-      class="container mx-auto flex p-3 justify-between items-center flex-wrap"
-    >
-      <a
-        href="#"
-        class="text-3xl font-extrabold tracking-tight text-sky-500 rounded-lg"
-      >
+  <header class="bg-white text-gray-800 shadow-md sticky top-0 z-50 border-b border-gray-200">
+    <div class="container mx-auto flex p-3 justify-between items-center flex-wrap">
+      <NuxtLink to="/" class="text-3xl font-extrabold tracking-tight text-sky-500 rounded-lg">
         DevShop
-      </a>
+      </NuxtLink>
 
       <div
-        class="hidden md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto mt-4 md:mt-0 space-y-4 md:space-y-0 md:space-x-8 ml-6 h-full"
-      >
+        class="hidden md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto mt-4 md:mt-0 space-y-4 md:space-y-0 md:space-x-8 ml-6 h-full">
         <nav>
-          <ul
-            class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 font-medium text-lg text-gray-700"
-          >
+          <ul class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 font-medium text-lg text-gray-700">
             <li>
               <NuxtLink to="#">Home One</NuxtLink>
             </li>
@@ -54,22 +42,32 @@ const signout = async() => {
                 </svg>
             </div> -->
         <!-- Auth Buttons -->
-        <div
-          class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4"
-        >
+        <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
           <template v-if="!isAuthenticated">
             <button class="btn-primary">
-              <NuxtLink :to="{name: 'auth-signin'}">Sign In</NuxtLink>
+              <NuxtLink :to="{ name: 'auth-signin' }">Sign In</NuxtLink>
             </button>
             <button class="btn-secondary">
-              <NuxtLink :to="{name: 'auth-signup'}">Sign Up</NuxtLink>
+              <NuxtLink :to="{ name: 'auth-signup' }">Sign Up</NuxtLink>
             </button>
           </template>
           <template v-else>
-            <div>{{ name }}</div>
-            <button class="btn-secondary hover:cursor-pointer" @click.prevent="signout">
-              Signout
-            </button>
+            <nav>
+              <ul
+                class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 font-medium text-lg text-gray-700">
+                <li>
+                  {{ name }}
+                </li>
+                <li>
+                  <NuxtLink to="/orders">Orders</NuxtLink>
+                </li>
+                <li>
+                  <button class="hover:cursor-pointer" @click.prevent="signout">
+                    Signout
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </template>
         </div>
       </div>

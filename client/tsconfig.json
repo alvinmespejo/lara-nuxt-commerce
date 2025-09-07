@@ -4,7 +4,11 @@
     "baseUrl": "",
     "paths": {
       "@/*": ["./app/*"]
-    }
+    },
+    "defaultModelID": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
   },
   "files": [],
   "references": [

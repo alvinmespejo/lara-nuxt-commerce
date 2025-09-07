@@ -1,7 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <slot />
-  </div>
+    <div>Failed Payment</div>
 </template>
