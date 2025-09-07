@@ -23,9 +23,9 @@ const { data, error, status } = await useFetchAPI<OrderListResponse>(
   }
 );
 
-const orders = computed(() => data.value?.data ?? []);
-const meta = computed(() => data.value?.meta ?? null);
-const links = computed(() => data.value?.links ?? null);
+const orders = computed<Array<Order> | []>(() => data.value?.data ?? []);
+const meta = computed<Meta | null>(() => data.value?.meta ?? null);
+const links = computed<Links | null>(() => data.value?.links ?? null);
 
 useHead({
   title: 'Orders',

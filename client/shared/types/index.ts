@@ -13,14 +13,14 @@ export type Links = {
 }
 
 export type Meta = {
-  current_page: string | number;
+  current_page?: string | number;
   from: string | number;
-  last_page: string | number;
+  last_page?: string | number;
   links: Link[];
   path: string;
-  per_page: string | number;
-  to: string | number;
-  total: string | number;
+  per_page?: string | number;
+  to?: string | number;
+  total?: string | number;
 };
 
 
