@@ -20,6 +20,11 @@ type CartResponse = {
   meta: ProductMeta | undefined;
 }
 
+type CartProduct = {
+  id: number;
+  quantity: number
+}
+
 export const useCart = defineStore('cart', {
   state: (): CartState => ({
     empty: false,
@@ -27,7 +32,7 @@ export const useCart = defineStore('cart', {
     shipping: null,
     subtotal: null as string | null,
     total: null as string | null,
-    products: <Product[] | null>[]
+    products: <Product[] | null>[],
   }),
   actions: {
     async fetch() {
@@ -47,10 +52,27 @@ export const useCart = defineStore('cart', {
       this.change = cart.meta?.change ?? false;
       this.empty = cart.meta?.empty ?? false;
       this.products = cart.data?.products ?? null;
+      this.total = cart.meta?.total ?? ''
+      this.subtotal = cart.meta?.subtotal ?? ''
     },
     async delete(productId: string) {
       const api = useAPI();
       await api.destroy(`/cart/${productId}`);
+    },
+    async addCart(product: CartProduct[]) {
+      const api = useAPI();
+      await api.post(`/cart`, { products: product });
+      await this.fetch();
+    },
+    async updateCart(productId: number, quantity: number) {
+      const api = useAPI();
+      await api.patch(`/cart/${productId}`, { quantity });
+      await this.fetch();
+    },
+    async removeCart(productId: number) {
+      const api = useAPI();
+      await api.destroy(`/cart/${productId}`);
+      await this.fetch();
     },
   },
   getters: {
@@ -60,11 +82,17 @@ export const useCart = defineStore('cart', {
     isEmpty(state): boolean {
       return state.empty;
     },
-    getTotal(state): string | null  {
+    getTotal(state): string | null {
       return state.total ?? null;
     },
     getSubTotal(state): string | null {
       return state.subtotal ?? null;
+    },
+    getCartCount(state): number {
+      return state.products?.length ?? 0;
+    },
+    getProducts(state): Product[] | null {
+      return state.products ?? null;
     },
   },
 });

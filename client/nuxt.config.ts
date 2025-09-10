@@ -101,13 +101,13 @@ export default defineNuxtConfig({
        * security reason, send a refresh token every 10 minutes
        * to update the access token on the header.
        */
-      enablePeriodically: 600000, // (10 mins)in milliseconds
+      enablePeriodically: 604800000 , // (10 mins)in milliseconds
       enableOnWindowFocus: true,
     },
   },
   plugins: [
     '~/plugins/ssr-width.ts',
-    '~/plugins/init.pinia.server.ts',
     '~/plugins/api.interceptor.ts',
+    '~/plugins/init.pinia.server.ts',
   ],
 });

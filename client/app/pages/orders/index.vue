@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { UseFetchOptions } from '#app';
 import { useOrder } from '~/stores/order';
+import Order from '~/components/orders/Order.vue';
 const orderStore = useOrder();
 
 // onMounted(async() => {
@@ -23,6 +24,7 @@ const { data, error, status } = await useFetchAPI<OrderListResponse>(
   }
 );
 
+
 const orders = computed<Array<Order> | []>(() => data.value?.data ?? []);
 const meta = computed<Meta | null>(() => data.value?.meta ?? null);
 const links = computed<Links | null>(() => data.value?.links ?? null);
@@ -42,34 +44,39 @@ definePageMeta({
 <template>
   <div class="container mx-auto mt-10">
     <template v-if="orders.length">
-      Your orders
-      <div class="table w-full mt-4">
-        <div class="table-header-group">
-          <div class="table-row">
-            <div class="table-cell text-left">Song</div>
-            <div class="table-cell text-left">Artist</div>
-            <div class="table-cell text-left">Year</div>
-          </div>
-        </div>
-        <div class="table-row-group">
-          <div class="table-row">
-            <div class="table-cell">
-              The Sliding Mr. Bones (Next Stop, Pottersville)
-            </div>
-            <div class="table-cell">Malcolm Lockyer</div>
-            <div class="table-cell">1961</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">Witchy Woman</div>
-            <div class="table-cell">The Eagles</div>
-            <div class="table-cell">1972</div>
-          </div>
-          <div class="table-row">
-            <div class="table-cell">Shining Star</div>
-            <div class="table-cell">Earth, Wind, and Fire</div>
-            <div class="table-cell">1975</div>
-          </div>
-        </div>
+      <div class="mb-4">
+        <p class="font-bold text-2xl">Your Orders</p>
+      </div>
+      <div class="overflow-hidden bg-gray-100">
+        <table class="table-fixed w-full">
+          <tbody class="border-l-4 border-gray-300">
+            <Order v-for="order in orders" :key="order.id" :order="order"/>
+            <!-- <tr class="h-18">
+              <td class="pl-6">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+              <td>Malcolm Lockyer</td>
+              <td>1961</td>
+              <td>1961</td>
+            </tr>
+            <tr class="h-18">
+              <td class="pl-6">Witchy Woman</td>
+              <td>The Eagles</td>
+              <td>1972</td>
+              <td>1961</td>
+            </tr>
+            <tr class="h-18">
+              <td class="pl-6">Shining Star</td>
+              <td>Earth, Wind, and Fire</td>
+              <td>1975</td>
+              <td>1961</td>
+            </tr>
+            <tr class="h-18">
+              <td class="pl-6"> 123r</td>
+              <td>Earth, Wind, and dasdaFire</td>
+              <td>1975</td>
+              <td>1961</td>
+            </tr> -->
+          </tbody>
+        </table>
       </div>
     </template>
     <template v-else>

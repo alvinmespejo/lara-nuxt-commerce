@@ -168,7 +168,7 @@ class CartService
      * @param string $productId
      * @return integer
      */
-    public function getCurrentQuantity(string $productId): int
+    private function getCurrentQuantity(string $productId): int
     {
         $productId = trim($productId);
         if (empty($productId)) {

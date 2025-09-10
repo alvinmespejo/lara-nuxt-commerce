@@ -24,6 +24,7 @@ class ProductResource extends JsonResource
             'in_stock' => $this->inStock(),
             'stock_count' => $this->stockCount(),
         ];
+
         return array_merge(
             $product,
             [

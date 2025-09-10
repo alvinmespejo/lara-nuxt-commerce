@@ -78,7 +78,7 @@ class CartController extends Controller
     {
         try {
             $this->cart->update($productVariation->id, $request->quantity);
-            return new ApiResponse();
+            // return new ApiResponse();
         } catch (Throwable $th) {
             return new ApiResponseError($th);
         }

@@ -22,7 +22,11 @@ class CartProductVariationResource extends JsonResource
             'price' => $this->formattedPrice,
             'description' => $this->descrition,
             'stock_count' => $this->stockCount(),
-            'in_stock' => $this->inStock()
+            'in_stock' => $this->inStock(),
+            'type' => $this->whenLoaded(
+                'type',
+                $this->type->name,
+            ),
         ];
 
         return array_merge(

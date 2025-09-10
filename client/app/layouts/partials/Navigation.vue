@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useCart } from '~/stores/cart';
+
 const { data: user, status, signOut } = useAuth();
+const cartStore = useCart()
 
 const isAuthenticated = computed(() => {
   return status.value === 'authenticated' || status.value === 'loading';
@@ -7,8 +10,8 @@ const isAuthenticated = computed(() => {
 
 const name = computed(() => user.value?.name);
 
-const signout = async () => {
-  await signOut({ callbackUrl: '/' });
+const signout = () => {
+  signOut({ callbackUrl: '/' });
 };
 </script>
 
@@ -60,6 +63,9 @@ const signout = async () => {
                 </li>
                 <li>
                   <NuxtLink to="/orders">Orders</NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/cart">Cart ({{ cartStore.getCartCount }})</NuxtLink>
                 </li>
                 <li>
                   <button class="hover:cursor-pointer" @click.prevent="signout">
