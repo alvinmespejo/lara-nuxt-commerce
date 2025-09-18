@@ -14,6 +14,10 @@ export type Address = {
     country: Country;
 }
 
-export type ShippingAddressResponse = {
+export type ShippingAddressesResponse = {
     data: Address[] | undefined
 }
+
+export type ShippingAddressResponse = {
+  data: Address;
+};

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ShippingAddress from '@/components/checkout/addresses/ShippingAddress.vue';
 import PaymentMethods from '@/components/checkout/payments/PaymentMethods.vue';
+import type { ShippingAddressesResponse } from '~~/shared/types/shippingAddress';
 
 type checkoutForm = {
   address_id?: number,
@@ -19,7 +20,7 @@ const {
   status,
 } = useAsyncData('cart-checkout', async () => {
   const [addresses, paymentMethods] = await Promise.all([
-    useFetchAPI<ShippingAddressResponse>(`/addresses`, { method: 'GET' }),
+    useFetchAPI<ShippingAddressesResponse>(`/addresses`, { method: 'GET' }),
     useFetchAPI<PaymentMethodsResponse>(`/payment-methods`, { method: 'GET' }),
   ]);
 

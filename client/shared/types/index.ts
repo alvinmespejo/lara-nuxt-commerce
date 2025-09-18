@@ -23,10 +23,19 @@ export type Meta = {
   total?: string | number;
 };
 
+export type Country = {
+  id: number;
+  code: string;
+  name: string;
+}
 
-// export interface APIResponseError {
-//   [key: string]: string | string[];
-// }
+export type CountryResponse = {
+  data: Country[]
+}
+
+export interface APIResponseError {
+  [key: string]: string | string[];
+}
 
 // export interface User {
 //   id: number;

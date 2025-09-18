@@ -33,9 +33,9 @@ const addressCreated = (address: Address) => {
 const switchAddress = (address: Address | undefined) => {
   selectedAddress.value = address ?? null;
 }
+
 watch(selectedAddress, (newAddress, oldAddress) => {
-  console.log(newAddress?.id, oldAddress?.country)
-  if (!newAddress) return
+  if (!newAddress || newAddress.id === oldAddress?.id) return
 
   emit('update:modelValue', newAddress.id)
 })
@@ -48,7 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <article>
+  
     <div class="p-5 border-l-4 border-gray-300">
       <h1 class="font-bold text-lg mb-4">Ship to</h1>
       <template v-if="selecting">
@@ -60,21 +60,21 @@ onMounted(() => {
       </template>
 
       <template v-else-if="creating">
-         <ShippingAddressCreator @addressCreated="addressCreated" @cancelAddressShippingCreator="creating = false" />
+         <ShippingAddressCreator @addressCreated="addressCreated" @cancelAddressShippingCreation="creating = false" />
       </template>
 
       <template v-else>
-        <template v-if="selectedAddress">
+        <div v-if="selectedAddress">
           <p>
-              {{ selectedAddress.name }} <br/>
-              {{ selectedAddress.address_1 }} <br/>
-              {{ selectedAddress.city }} <br/>
-              {{ selectedAddress.postal_code }} <br/>
-              {{ selectedAddress.country.name }} <br/>
-            </p>
-            <br/>
-        </template>
-        <div class="flex gap gap-4">
+            {{ selectedAddress.name }} <br/>
+            {{ selectedAddress.address_1 }} <br/>
+            {{ selectedAddress.city }} <br/>
+            {{ selectedAddress.postal_code }} <br/>
+            {{ selectedAddress.country.name }} <br/>
+          </p>
+          <br/>
+        </div>
+        <div class="flex gap-4">
           <Button
             class="cursor-pointer bg-sky-500 hover:bg-sky-600"
             @click.prevent="selecting = true"
@@ -90,5 +90,5 @@ onMounted(() => {
         </div>
       </template>
     </div>
-  </article>
+  
 </template>
