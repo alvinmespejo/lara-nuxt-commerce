@@ -55,10 +55,6 @@ export const useCart = defineStore('cart', {
       this.total = cart.meta?.total ?? ''
       this.subtotal = cart.meta?.subtotal ?? ''
     },
-    async delete(productId: string) {
-      const api = useAPI();
-      await api.destroy(`/cart/${productId}`);
-    },
     async addCart(product: CartProduct[]) {
       const api = useAPI();
       await api.post(`/cart`, { products: product });

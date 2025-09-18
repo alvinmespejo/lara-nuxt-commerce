@@ -1,12 +1,12 @@
 <script setup lang="ts">
-//**** Store ****// 
-import { useCart } from '~/stores/cart'
-
 //**** Types ****// 
-import type { ProductDetail,  ProductVariation as prodVariationType } from '../../../shared/types/product';
+import type { ProductVariation as prodVariationType } from '../../../shared/types/product';
 
 //**** Components ****// 
-import ProductVariation from '~/components/products/ProductVariation.vue';
+import ProductVariation from '@/components/products/ProductVariation.vue';
+
+//**** Store ****// 
+import { useCart } from '~/stores/cart'
 
 const router = useRoute();
 const cartStore = useCart();
@@ -65,7 +65,7 @@ useHead({
       <div>
         <div class="">
           <img src="https://placehold.co/620x620" :alt="productSlug" />
-        </div>
+        </div>h
       </div>
       <div>
         <section>

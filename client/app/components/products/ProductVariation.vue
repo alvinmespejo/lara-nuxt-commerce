@@ -13,12 +13,12 @@ const emit = defineEmits<{
 }>();
 
 const selectVariationId = computed<number | ''>(() => {
-    if(findVariation(parseInt(props.modelValue))) {
-        return ''
-    }
+  if (findVariation(parseInt(props.modelValue.id)) == '') {
+    return '';
+  }
 
-    return props.modelValue.id
-})
+  return props.modelValue.id;
+});
 
 const handleSelectOnChange = (event: Event): void => {
   emit(
@@ -27,15 +27,14 @@ const handleSelectOnChange = (event: Event): void => {
   );
 };
 
-const findVariation = (id: number): ProductVariation | ''  => {
+const findVariation = (id: number): ProductVariation | '' => {
   let variation = props.variations.find((variation) => variation.id == id);
-  if (variation === undefined || variation === null) {
+  if (variation === undefined) {
     return '';
   }
 
   return variation;
 };
-
 </script>
 
 <template>
@@ -59,11 +58,9 @@ const findVariation = (id: number): ProductVariation | ''  => {
       >
         {{ variation.name }}
         <template v-if="variation.price_varies">
-            ({{ variation.price }})
+          ({{ variation.price }})
         </template>
-        <template v-if="!variation.in_stock">
-            (Out of stock)
-        </template>
+        <template v-if="!variation.in_stock"> (Out of stock) </template>
       </option>
     </select>
   </div>

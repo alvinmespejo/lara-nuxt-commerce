@@ -14,23 +14,30 @@ use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
 
 Route::group(['prefix' => '/v1'], function () {
-    /** Authentication route */
+
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('categories', CategoryController::class);
+
     Route::group(['prefix' => '/auth'], function () {
         Route::post('/signin', [SigninController::class, 'signin']);
         Route::post('/signup', [SignupController::class, 'signup']);
         Route::post('/signinv2', [SigninController::class, 'signinv2']);
-
-        Route::get('/me', [AuthController::class, 'me'])->middleware(['jwt']);
-        Route::get('/refresh', [AuthController::class, 'refresh'])->middleware('jwt');
-        Route::post('/signout', [AuthController::class, 'signout'])->middleware('jwt');
     });
 
+    /** Authenticated routes */
     Route::group(['middleware' => 'jwt'], function () {
+
+        Route::group(['prefix' => '/auth'], function () {
+            Route::get('/me', [AuthController::class, 'me']);
+            Route::get('/refresh', [AuthController::class, 'refresh']);
+            Route::post('/signout', [AuthController::class, 'signout']);
+        });
+
         Route::get('/addresses/{address}/shipping', [AddressShippingController::class, 'show']);
         Route::apiResource('countries', CountryController::class);
         Route::apiResource('addresses', AddressController::class);
@@ -39,10 +46,6 @@ Route::group(['prefix' => '/v1'], function () {
         Route::apiResource('cart', CartController::class)->parameters([
             'cart' => 'productVariation'
         ]);
+        Route::apiResource('payment-methods', PaymentMethodController::class);
     });
-
-
-    Route::apiResource('products', ProductController::class);
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('payment-methods', PaymentMethodController::class);
 });

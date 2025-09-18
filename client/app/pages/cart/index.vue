@@ -1,4 +1,8 @@
 <script setup lang="ts">
+
+//**** Store ****// 
+import { useCart } from '~/stores/cart'
+
 const cartStore = useCart();
 
 useHead({
