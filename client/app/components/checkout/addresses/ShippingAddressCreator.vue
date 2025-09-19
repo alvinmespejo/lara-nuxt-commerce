@@ -200,8 +200,7 @@ const onSubmit = handleSubmit(async (values) => {
           href="#"
           class="underline"
           @click.prevent="emit('cancelAddressShippingCreation', true)"
-          >Cancel</a
-        >
+          >Cancel</a>
       </div>
     </form>
   </div>

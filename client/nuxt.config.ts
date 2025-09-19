@@ -13,8 +13,10 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   runtimeConfig: {
+    stripeSecret: '',
     public: {
-      apiBaseURL: `${process.env.PUBLIC_API_BASE}`,
+      apiBaseURL: '',
+      stripeKey: ''
     },
   },
   app: {
@@ -29,6 +31,9 @@ export default defineNuxtConfig({
         },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+      script: [
+        {src: 'https://js.stripe.com/basil/stripe.js', async: true}
+      ]
     },
   },
   modules: [
@@ -60,7 +65,8 @@ export default defineNuxtConfig({
   },
   auth: {
     globalAppMiddleware: true,
-    baseURL: process.env.PUBLIC_API_BASE,
+    // baseURL: process.env.PUBLIC_API_BASE,
+    originEnvKey: 'NUXT_PUBLIC_API_BASE_URL',
     provider: {
       type: 'local',
       pages: { login: '/' },
@@ -75,7 +81,7 @@ export default defineNuxtConfig({
         type: 'Bearer',
         cookieName: 'auth.token',
         headerName: 'Authorization',
-        maxAgeInSeconds: 60 * 15, // 1hr need to update this to 15 mins in prod
+        maxAgeInSeconds: 604800, // 1hr need to update this to 15 mins in prod
       },
       // refresh: {
       //   isEnabled: true,
@@ -101,7 +107,7 @@ export default defineNuxtConfig({
        * security reason, send a refresh token every 10 minutes
        * to update the access token on the header.
        */
-      enablePeriodically: 604800000 , // (10 mins)in milliseconds
+      enablePeriodically: 1000 * 60 * 60 * 7, // (10 mins)in milliseconds
       enableOnWindowFocus: true,
     },
   },

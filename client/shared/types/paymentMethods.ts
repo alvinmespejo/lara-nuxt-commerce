@@ -5,6 +5,9 @@ export type PaymentMethod = {
     default: boolean;
 }
 
+export type PaymentMethodResponse = {
+    data: PaymentMethod | undefined
+}
 
 export type PaymentMethodsResponse = {
     data: PaymentMethod[] | undefined

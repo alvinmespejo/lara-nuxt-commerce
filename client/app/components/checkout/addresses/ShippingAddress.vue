@@ -34,10 +34,10 @@ const switchAddress = (address: Address | undefined) => {
   selectedAddress.value = address ?? null;
 }
 
-watch(selectedAddress, (newAddress, oldAddress) => {
-  if (!newAddress || newAddress.id === oldAddress?.id) return
+watch(selectedAddress, (val) => {
+  if (!val) return
 
-  emit('update:modelValue', newAddress.id)
+  emit('update:modelValue', val.id)
 })
 
 onMounted(() => {
@@ -48,47 +48,45 @@ onMounted(() => {
 </script>
 
 <template>
-  
-    <div class="p-5 border-l-4 border-gray-300">
-      <h1 class="font-bold text-lg mb-4">Ship to</h1>
-      <template v-if="selecting">
-        <ShippingAddressSelector
-          :addresses="addresses"
-          :selectedAddress="selectedAddress"
-          @switchAddress="addressSelected"
-        />
-      </template>
+  <div class="p-5 border-l-4 border-gray-300 bg-gray-100">
+    <h1 class="font-bold text-lg mb-4">Ship to</h1>
+    <template v-if="selecting">
+      <ShippingAddressSelector
+        :addresses="addresses"
+        :selectedAddress="selectedAddress"
+        @switchAddress="addressSelected"
+      />
+    </template>
 
-      <template v-else-if="creating">
-         <ShippingAddressCreator @addressCreated="addressCreated" @cancelAddressShippingCreation="creating = false" />
-      </template>
+    <template v-else-if="creating">
+        <ShippingAddressCreator @addressCreated="addressCreated" @cancelAddressShippingCreation="creating = false" />
+    </template>
 
-      <template v-else>
-        <div v-if="selectedAddress">
-          <p>
-            {{ selectedAddress.name }} <br/>
-            {{ selectedAddress.address_1 }} <br/>
-            {{ selectedAddress.city }} <br/>
-            {{ selectedAddress.postal_code }} <br/>
-            {{ selectedAddress.country.name }} <br/>
-          </p>
-          <br/>
-        </div>
-        <div class="flex gap-4">
-          <Button
-            class="cursor-pointer bg-sky-500 hover:bg-sky-600"
-            @click.prevent="selecting = true"
-          >
-            Change shipping address
-          </Button>
-          <Button
-            class="cursor-pointer bg-sky-500 hover:bg-sky-600"
-            @click.prevent="creating = true"
-          >
-            Add new address
-          </Button>
-        </div>
-      </template>
-    </div>
-  
+    <template v-else>
+      <div v-if="selectedAddress">
+        <p>
+          {{ selectedAddress.name }} <br/>
+          {{ selectedAddress.address_1 }} <br/>
+          {{ selectedAddress.city }} <br/>
+          {{ selectedAddress.postal_code }} <br/>
+          {{ selectedAddress.country.name }} <br/>
+        </p>
+        <br/>
+      </div>
+      <div class="flex gap-4">
+        <Button
+          class="cursor-pointer bg-sky-500 hover:bg-sky-600"
+          @click.prevent="selecting = true"
+        >
+          Change shipping address
+        </Button>
+        <Button
+          class="cursor-pointer bg-sky-500 hover:bg-sky-600"
+          @click.prevent="creating = true"
+        >
+          Add new address
+        </Button>
+      </div>
+    </template>
+  </div>
 </template>
