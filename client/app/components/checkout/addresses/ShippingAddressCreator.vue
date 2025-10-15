@@ -13,7 +13,7 @@ const api = useAPI();
 
 const emit = defineEmits<{
   (e: 'cancelAddressShippingCreation', value: boolean): void;
-  (e: 'addressCreated', value: Address): void;
+  (e: 'addressCreated', value?: Address): void;
 }>();
 
 const zodSchema = z.object({

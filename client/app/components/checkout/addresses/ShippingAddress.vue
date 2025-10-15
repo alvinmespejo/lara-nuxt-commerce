@@ -24,7 +24,11 @@ const addressSelected = (address: Address): void => {
   selecting.value = false;
 };
 
-const addressCreated = (address: Address) => {
+const addressCreated = (address: Address | undefined) => {
+  if (address === undefined || address === null) {
+    return;
+  }
+  
   localAddresses.value.push(address);
   switchAddress(address)
   creating.value = false;

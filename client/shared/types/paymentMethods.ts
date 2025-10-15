@@ -10,5 +10,5 @@ export type PaymentMethodResponse = {
 }
 
 export type PaymentMethodsResponse = {
-    data: PaymentMethod[] | undefined
+    data?: PaymentMethod[]
 }

@@ -15,9 +15,9 @@ export type Address = {
 }
 
 export type ShippingAddressesResponse = {
-    data: Address[] | undefined
+    data?: Address[]
 }
 
 export type ShippingAddressResponse = {
-  data: Address;
+  data?: Address;
 };
